@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Камила | Карьерный консультант</title>
+    <style>
+        /* ГЛОБАЛЬНЫЕ СТИЛИ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3a4cb1;
+            --primary-light: #5562c7;
+            --secondary: #fa6c88;
+            --dark: #221e41;
+            --gray: #f5f5f7;
+            --text: #333;
+            --light: #fff;
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -0.5rem;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .section:hover h2::after {
+            width: 120px;
+        }
+
+        section.center h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            border: none;
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            transition: var(--transition);
+            z-index: -1;
+            border-radius: 50px;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--light);
+            box-shadow: 0 10px 20px rgba(58, 76, 177, 0.2);
+        }
+
+        .btn-primary::before {
+            background: var(--secondary);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--light);
+            box-shadow: 0 10px 20px rgba(250, 108, 136, 0.2);
+        }
+
+        .btn-secondary::before {
+            background: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline::before {
+            background: var(--primary);
+        }
+
+        .btn-outline:hover {
+            color: white;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        /* НАВИГАЦИЯ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        header.sticky {
+            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            font-weight: 600;
+            position: relative;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* ГЛАВНЫЙ РАЗДЕЛ */
+        .hero {
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -5%;
+            width: 50%;
+            height: 100%;
+            background: url('/api/placeholder/800/1000') no-repeat center center/cover;
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+            opacity: 0.9;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+            animation: slideUp 1s ease;
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* О СЕБЕ РАЗДЕЛ */
+        .about {
+            background-color: var(--gray);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-img {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .about-img:hover {
+            transform: translateY(-10px);
+        }
+
+        .about-img img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text ul {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .about-text ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .about-text ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* УСЛУГИ РАЗДЕЛ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            opacity: 0.03;
+            z-index: -1;
+            transition: height 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-icon {
+            margin-bottom: 1.5rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card .btn {
+            margin-top: auto;
+        }
+
+        /* ТАРИФЫ РАЗДЕЛ */
+        .pricing {
+            background-color: var(--gray);
+        }
+
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-toggle-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .pricing-toggle-btn.active {
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 2rem;
+            margin-top: 1rem;
+            perspective: 1000px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem 2.5rem;
+            flex: 1;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: var(--shadow);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px) rotateY(3deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card.popular {
+            z-index: 2;
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--primary);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-15px) rotateY(-3deg);
+        }
+
+        .pricing-card.popular::before {
+            content: 'Популярный';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .pricing-header {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .pricing-description {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.8rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .pricing-footer {
+            margin-top: auto;
+        }
+
+        /* Таблица сравнения */
+        .comparison {
+            margin-top: 5rem;
+            overflow-x: auto;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-check {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .comparison-x {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* КОНТАКТЫ РАЗДЕЛ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-text h4 {
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-text p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 76, 177, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* ФУТЕР */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-text {
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .footer-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* АНИМАЦИИ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+        }
+
+        .animate.fade-in {
+            animation: fadeIn 1s forwards;
+        }
+
+        .animate.slide-up {
+            animation: slideUp 1s forwards;
+        }
+
+        .animate.slide-left {
+            animation: slideInLeft 1s forwards;
+        }
+
+        .animate.slide-right {
+            animation: slideInRight 1s forwards;
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero::before {
+                width: 40%;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100%;
+                background: white;
+                z-index: 1001;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 5rem 2rem;
+            }
+
+            nav ul li {
+                margin: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+
+            .overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .hero::before {
+                display: none;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .about-content,
+            .grid-2,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pricing-card {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .pricing-card.popular:hover {
+                transform: translateY(-15px) rotateY(-3deg);
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding-top: 6rem;
+            }
+
+            .pricing-toggle {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Анимация при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            // Мобильное меню
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const nav = document.querySelector('nav');
+            const overlay = document.querySelector('.overlay');
+            
+            mobileToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+            
+            overlay.addEventListener('click', function() {
+                nav.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+            
+            // Прилипающий хедер
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('sticky');
+                } else {
+                    header.classList.remove('sticky');
+                }
+            });
+            
+            // Анимация при скролле
+            const animateElements = document.querySelectorAll('.animate');
+            
+            function checkInView() {
+                const windowHeight = window.innerHeight;
+                const windowTop = window.scrollY;
+                const windowBottom = windowTop + windowHeight;
+                
+                animateElements.forEach(function(element) {
+                    const elementTop = element.offsetTop;
+                    const elementBottom = elementTop + element.offsetHeight;
+                    
+                    // Если элемент в поле зрения
+                    if (elementBottom > windowTop && elementTop < windowBottom) {
+                        // Проверяем класс для анимации
+                        if (element.classList.contains('fade-in')) {
+                            element.style.animationDelay = element.dataset.delay || '0s';
+                            element.style.animationPlayState = 'running';
+                            element.style.opacity = 1;
+                        } else if (element.classList.contains('slide-up')) {
+                            element.style.animationDelay = element.dataset.delay || '0s';
+                            element.style.animationPlayState = 'running';
+                            element.style.opacity = 1;
+                        } else if (element.classList.contains('slide-left')) {
+                            element.style.animationDelay = element.dataset.delay || '0s';
+                            element.style.animationPlayState = 'running';
+                            element.style.opacity = 1;
+                        } else if (element.classList.contains('slide-right')) {
+                            element.style.animationDelay = element.dataset.delay || '0s';
+                            element.style.animationPlayState = 'running';
+                            element.style.opacity = 1;
+                        }
+                    }
+                });
+            }
+            
+            // Запускаем проверку при загрузке и скролле
+            checkInView();
+            window.addEventListener('scroll', checkInView);
+            
+            // Плавная прокрутка для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Закрываем мобильное меню
+                        nav.classList.remove('active');
+                        overlay.classList.remove('active');
+                        
+                        // Прокрутка к элементу
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Переключение тарифов
+            const pricingButtons = document.querySelectorAll('.pricing-toggle-btn');
+            
+            pricingButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    pricingButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Анимация переключения тарифов
+                    const pricingCards = document.querySelectorAll('.pricing-card');
+                    pricingCards.forEach(card => {
+                        card.style.transform = 'scale(0.95)';
+                        card.style.opacity = '0.7';
+                        
+                        setTimeout(() => {
+                            card.style.transform = '';
+                            card.style.opacity = '';
+                        }, 300);
+                    });
+                });
+            });
+            
+            // Эффект наведения для карточек услуг
+            const serviceCards = document.querySelectorAll('.service-card');
+            
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.querySelector('.service-icon').style.transform = 'scale(1.1) rotate(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.querySelector('.service-icon').style.transform = '';
+                });
+            });
+        });
+    </script>
+    <!-- НАВИГАЦИЯ -->
+    <header>
+        <div class="container flex justify-between items-center">
+            <a href="#" class="logo">Камила<span>.</span></a>
+            <div class="mobile-toggle">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О себе</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#pricing">Тарифы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="overlay"></div>
+    </header>
+
+    <!-- ГЛАВНЫЙ РАЗДЕЛ -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Построй карьеру <br><span style="color: var(--secondary)">своей мечты</span></h1>
+                <p>Персональное карьерное консультирование для тех, кто хочет вывести свою профессиональную жизнь на новый уровень.</p>
+                <div class="hero-btns">
+                    <a href="#services" class="btn btn-primary">Наши услуги</a>
+                    <a href="#contact" class="btn btn-outline">Связаться</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-img animate slide-left">
+                    <img src="istockphoto-1442556244-612x612.jpg" alt="Камила - карьерный консультант">
+                </div>
+                <div class="about-text animate slide-right">
+                    <h2>О себе</h2>
+                    <p>Привет! Меня зовут Камила, и я — карьерный консультант. Я помогаю людям, которые столкнулись с карьерным "застоем" или не могут найти подходящую работу.</p>
+                    <p>Моя цель — помочь вам достичь успеха и уверенности на рынке труда, предлагая персонализированные решения и стратегии.</p>
+                    <ul>
+                        <li>Более 5 лет опыта в карьерном консультировании</li>
+                        <li>Сертифицированный специалист по рекрутингу</li>
+                        <li>Помогла более 200 клиентам в поиске работы</li>
+                        <li>Индивидуальный подход к каждому клиенту</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ТАРИФЫ РАЗДЕЛ -->
+    <section id="pricing" class="section pricing center">
+        <div class="container">
+            <h2>Тарифы</h2>
+            <p>Выберите подходящий тариф, который соответствует вашим профессиональным потребностям</p>
+            
+
+            
+            <div class="pricing-container">
+                <div class="pricing-card animate fade-in">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Базовое резюме</div>
+                        <div class="pricing-price">70$<span></span></div>
+                        <div class="pricing-description">Идеально для обновления существующего резюме</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Резюме на одном языке</li>
+                        <li>Анализ текущего резюме</li>
+                        <li>Оптимизация структуры</li>
+                        <li>Акцент на достижения</li>
+                        <li>Подбор ключевых слов</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#contact" class="btn btn-primary">Заказать</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card popular animate fade-in" style="animation-delay: 0.3s">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Карьерное консультирование</div>
+                        <div class="pricing-price">100$<span>/ сессия</span></div>
+                        <div class="pricing-description">Для тех, кто ищет профессиональный рост</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>45-минутная сессия</li>
+                        <li>Анализ текущей ситуации</li>
+                        <li>Выявление ключевых проблем</li>
+                        <li>Работа с блоками</li>
+                        <li>Определение сильных сторон</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#contact" class="btn btn-secondary">Заказать</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card animate fade-in" style="animation-delay: 0.6s">
+                    <div class="pricing-header">
+                        <div class="pricing-name">Трудоустройство</div>
+                        <div class="pricing-price">1200$<span></span></div>
+                        <div class="pricing-description">Полное сопровождение поиска работы</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Консультации 2 раза в месяц</li>
+                        <li>Составление списка вакансий</li>
+                        <li>Адаптация под требования</li>
+                        <li>Подготовка к собеседованиям</li>
+                        <li>Консультация по результатам</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#contact" class="btn btn-primary">Заказать</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Таблица сравнения тарифов -->
+            <div class="comparison">
+                <h3>Сравнение тарифов</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Услуги</th>
+                            <th>Базовый</th>
+                            <th>Стандарт</th>
+                            <th>Премиум</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Обновление резюме (одного)</strong></td>
+                            <td class="comparison-check">✓</td>
+                            <td class="comparison-check">✓</td>
+                            <td class="comparison-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Обновление резюме (два языка)</strong></td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-check">✓</td>
+                            <td class="comparison-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Аудит LinkedIn профиля</strong></td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-check">✓</td>
+                            <td class="comparison-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Карьерное консультирование</strong></td>
+                            <td class="comparison-x">—</td>
+                            <td>1 сессия</td>
+                            <td>3 сессии</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Сопровождение при подаче</strong></td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Личный бренд</strong></td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Переговоры по зарплате</strong></td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-x">—</td>
+                            <td class="comparison-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Стоимость</strong></td>
+                            <td>от 70$</td>
+                            <td>от 200$</td>
+                            <td>от 1200$</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a href="#contact" class="btn btn-outline">Выбрать</a></td>
+                            <td><a href="#contact" class="btn btn-outline">Выбрать</a></td>
+                            <td><a href="#contact" class="btn btn-primary">Выбрать</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 2rem;">
+                    <p><strong>Специальные предложения:</strong></p>
+                    <p>• При покупке двух услуг за раз — скидка 20%.</p>
+                    <p>• При покупке трех услуг за раз — скидка 25%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- КОНТАКТЫ РАЗДЕЛ -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Связаться со мной</h2>
+                    <p>Готовы начать путь к успешной карьере? Свяжитесь со мной любым удобным способом, и я помогу вам достичь ваших профессиональных целей.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>info@kamila-career.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-text">
+                            <h4>Телефон</h4>
+                            <p>+7 (999) 123-45-67</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🌍</div>
+                        <div class="contact-text">
+                            <h4>Социальные сети</h4>
+                            <div class="footer-social" style="margin-top: 0.5rem;">
+                                <a href="#" class="social-link">FB</a>
+                                <a href="#" class="social-link">IG</a>
+                                <a href="#" class="social-link">LI</a>
+                                <a href="#" class="social-link">TG</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Оставить заявку</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="" selected disabled>Выберите услугу</option>
+                                <option value="resume">Обновление резюме</option>
+                                <option value="counseling">Карьерное консультирование</option>
+                                <option value="linkedin">Аудит LinkedIn</option>
+                                <option value="employment">Трудоустройство</option>
+                                <option value="branding">Личный бренд</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Ваше сообщение" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <!-- О СЕБЕ РАЗДЕЛ -->
+
+
+    <!-- УСЛУГИ РАЗДЕЛ -->
+    <section id="services" class="section center">
+        <div class="container">
+            <h2>Мои услуги</h2>
+            <p>Я предлагаю комплексные решения для развития вашей карьеры и достижения профессиональных целей. Индивидуальный подход к каждому клиенту поможет вам преодолеть карьерные препятствия и достичь новых высот.</p>
+            
+            <div class="services-grid">
+                <div class="service-card animate fade-in">
+                    <div class="service-icon">1</div>
+                    <h3>Трудоустройство</h3>
+                    <p>Полное сопровождение в поиске работы от подбора вакансий до заключения контракта.</p>
+                    <ul>
+                        <li>Поиск вакансий</li>
+                        <li>Подготовка к собеседованиям</li>
+                        <li>Переговоры по зарплате</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline">Подробнее</a>
+                </div>
+                
+                <div class="service-card animate fade-in" style="animation-delay: 0.2s;">
+                    <div class="service-icon">2</div>
+                    <h3>Обновление резюме</h3>
+                    <p>Создание профессионального резюме, которое выделит вас среди других кандидатов.</p>
+                    <ul>
+                        <li>Структурирование опыта</li>
+                        <li>Оптимизация под требования</li>
+                        <li>Акцент на достижения</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline">Подробнее</a>
+                </div>
+                
+                <div class="service-card animate fade-in" style="animation-delay: 0.4s;">
+                    <div class="service-icon">3</div>
+                    <h3>Карьерное консультирование</h3>
+                    <p>Анализ вашей карьеры и стратегические решения для профессионального роста.</p>
+                    <ul>
+                        <li>Анализ текущей ситуации</li>
+                        <li>Выявление блокировок</li>
+                        <li>Стратегия развития</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline">Подробнее</a>
+                </div>
+
+                <div class="service-card animate fade-in" style="animation-delay: 0.6s;">
+                    <div class="service-icon">4</div>
+                    <h3>Аудит LinkedIn</h3>
+                    <p>Оптимизация профиля LinkedIn для привлечения внимания рекрутеров.</p>
+                    <ul>
+                        <li>Оценка профиля</li>
+                        <li>Оптимизация заголовка</li>
+                        <li>Ключевые слова</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline">Подробнее</a>
+                </div>
+
+                <div class="service-card animate fade-in" style="animation-delay: 0.8s;">
+                    <div class="service-icon">5</div>
+                    <h3>Сопровождение при подаче</h3>
+                    <p>Поддержка на всех этапах подачи на вакансии до получения предложения.</p>
+                    <ul>
+                        <li>Подготовка документов</li>
+                        <li>Собеседования</li>
+                        <li>Переговоры по оплате</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline">Подробнее</a>
+                </div>
+
+                <div class="service-card animate fade-in" style="animation-delay: 1s;">
+                    <div class="service-icon">6</div>
+                    <h3>Личный бренд</h3>
+                    <p>Создание и развитие вашего личного профессионального бренда.</p>
+                    <ul>
+                        <li>Стратегия бренда</li>
+                        <li>Позиционирование</li>
+                        <li>Контент-план</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ФУТЕР -->    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo">Камила<span style="color: var(--secondary)">.</span></a>
+                    <p class="footer-text">Профессиональный карьерный консультант, помогающий людям достигать новых высот в профессиональной жизни.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">IG</a>
+                        <a href="#" class="social-link">LI</a>
+                        <a href="#" class="social-link">TG</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#about">О себе</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#pricing">Тарифы</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Услуги</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Трудоустройство</a></li>
+                        <li><a href="#services">Обновление резюме</a></li>
+                        <li><a href="#services">Карьерное консультирование</a></li>
+                        <li><a href="#services">Аудит LinkedIn</a></li>
+                        <li><a href="#services">Личный бренд</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="footer-title">Контакты</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@kamila-career.com</li>
+                        <li>Телефон: +7 (999) 123-45-67</li>
+                        <li>Skype: kamila.career</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Камила | Карьерный консультант. Все права защищены.
+            </div>
+        </div>
+    </footer>      
