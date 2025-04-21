@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Камила | Карьерный консультант</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* ГЛОБАЛЬНЫЕ СТИЛИ */
         *, *::before, *::after{margin:0;padding:0;box-sizing:border-box}
-        :root{--primary:#3a4cb1;--primary-light:#5562c7;--secondary:#fa6c88;--dark:#221e41;--gray:#f5f5f7;--text:#333;--light:#fff;--shadow:0 4px 30px rgba(0,0,0,.05);--transition:all .3s ease}
+        :root{--primary:#3a4cb1;--primary-light:#5562c7;--secondary:#fa6c88;--dark:#221e41;--gray:#f5f5f7;            --text: #000000; ;--light:#fff;--shadow:0 4px 30px rgba(0,0,0,.05);--transition:all .3s ease}
         @font-face{font-family:'Montserrat';src:url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap')}
         html{scroll-behavior:smooth}
         body{font-family:'Montserrat',sans-serif;line-height:1.6;color:var(--text);overflow-x:hidden;background:var(--light)}
@@ -86,26 +87,169 @@
                 grid-template-columns: 1fr;
             }
         }
+
+            /* Floating WhatsApp button */
+            .whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 32px;      /* размер иконки */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    z-index: 1100;
+    transition: transform 0.3s ease;
+  }
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+  }
     </style>
 </head>
 <body>
+
+
+
+  <!-- ============ WHATSAPP FLOAT ============ -->
+  <a
+  class="whatsapp-float"
+  href="https://wa.me/77713624400"
+  target="_blank"
+  rel="noopener"
+  aria-label="Чат в WhatsApp"
+>
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+  
     <!-- ============= НАВИГАЦИЯ ============= -->
     <header>
+        <!-- стили для мобильного меню -->
+        <style>
+          /* затемняющий слой */
+          .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,.5);
+            z-index: 1000;
+            opacity: 0; visibility: hidden;
+            pointer-events: none;
+            transition: var(--transition);
+          }
+          .overlay.active {
+            opacity: 1; visibility: visible;
+            pointer-events: auto;
+          }
+      
+          /* блокировка прокрутки при открытом меню */
+          body.nav-open {
+            overflow: hidden;
+          }
+      
+          /* стили «гамбургера» */
+          .mobile-toggle {
+            display: none;
+            width: 30px; height: 24px;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1002;
+          }
+          .mobile-toggle span {
+            display: block;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: var(--transition);
+          }
+          .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+          }
+          .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+          }
+          .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+          }
+      
+          @media (max-width: 768px) {
+            .mobile-toggle {
+              display: flex;
+            }
+            nav {
+              position: fixed;
+              top: 0; left: 0;
+              width: 100%; height: 100vh;
+              padding-top: 6rem;
+              background: #fff;
+              overflow-y: auto;
+              transform: translateX(-100%);
+              transition: transform .3s ease;
+              z-index: 1001;
+            }
+            nav.active {
+              transform: translateX(0);
+            }
+            nav ul {
+              flex-direction: column;
+              gap: 1.5rem;
+              padding: 0 2rem;
+            }
+          }
+        </style>
+      
+        <!-- overlay -->
+        <div class="overlay"></div>
+      
         <div class="container flex justify-between items-center">
-            <a href="#" class="logo">Камила<span>.</span></a>
-            <div class="mobile-toggle">☰</div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#about">О себе</a></li>
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#pricing">Тарифы</a></li>
-                    <li><a href="#testimonials">Отзывы</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-            </nav>
+          <a href="#" class="logo">Камила<span>.</span></a>
+          <div class="mobile-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="#about">О себе</a></li>
+              <li><a href="#services">Услуги</a></li>
+              <li><a href="#pricing">Тарифы</a></li>
+              <li><a href="#testimonials">Отзывы</a></li>
+              <li><a href="#contact">Контакты</a></li>
+            </ul>
+          </nav>
         </div>
-    </header>
+      
+        <!-- скрипт переключения -->
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+            const toggle  = document.querySelector('.mobile-toggle');
+            const nav     = document.querySelector('header nav');
+            const overlay = document.querySelector('.overlay');
+      
+            toggle.addEventListener('click', () => {
+              toggle.classList.toggle('active');
+              nav.classList.toggle('active');
+              overlay.classList.toggle('active');
+              document.body.classList.toggle('nav-open');
+            });
+      
+            overlay.addEventListener('click', () => {
+              toggle.classList.remove('active');
+              nav.classList.remove('active');
+              overlay.classList.remove('active');
+              document.body.classList.remove('nav-open');
+            });
+          });
+        </script>
+      </header>
+      
+      
 
     <!-- ============= HERO ============= -->
 
@@ -206,7 +350,7 @@
                         </div>
                         <div>
                             <p class="testimonial-name">Evgeniya Seliverstova</p>
-                            <p class="testimonial-position">Manual QA Engineer</p>
+                            <p class="testimonial-position">Manual Quality Assuarance Engineer</p>
                         </div>
                     </div>
                     <div class="testimonial-rating">★★★★★ 5.0</div>
@@ -275,10 +419,120 @@
 <!-- УСЛУГИ -->
 <section id="services" class="section center"><div class="container"><h2>Мои услуги</h2><p>Я предлагаю комплексные решения для развития вашей карьеры и достижения профессиональных целей. Индивидуальный подход к каждому клиенту поможет вам преодолеть карьерные препятствия и достичь новых высот.</p><div class="services-grid"><div class="service-card animate fade-in"><div class="service-icon">1</div><h3>Трудоустройство</h3><p>Полное сопровождение в поиске работы от подбора вакансий до заключения контракта.</p><ul><li>Поиск вакансий</li><li>Подготовка к собеседованиям</li><li>Переговоры по зарплате</li></ul><a href="#pricing" class="btn btn-outline">Подробнее</a></div><div class="service-card animate fade-in" style="animation-delay:.2s"><div class="service-icon">2</div><h3>Обновление резюме</h3><p>Создание профессионального резюме, которое выделит вас среди других кандидатов.</p><ul><li>Структурирование опыта</li><li>Оптимизация под требования</li><li>Акцент на достижения</li></ul><a href="#pricing" class="btn btn-outline">Подробнее</a></div><div class="service-card animate fade-in" style="animation-delay:.4s"><div class="service-icon">3</div><h3>Карьерное консультирование</h3><p>Анализ вашей карьеры и стратегические решения для профессионального роста.</p><ul><li>Анализ текущей ситуации</li><li>Выявление блокировок</li><li>Стратегия развития</li></ul><a href="#pricing" class="btn btn-outline">Подробнее</a></div><div class="service-card animate fade-in" style="animation-delay:.6s"><div class="service-icon">4</div><h3>Аудит LinkedIn</h3><p>Оптимизация профиля LinkedIn для привлечения внимания рекрутеров.</p><ul><li>Оценка профиля</li><li>Оптимизация заголовка</li><li>Ключевые слова</li></ul><a href="#pricing" class="btn btn-outline">Подробнее</a></div><div class="service-card animate fade-in" style="animation-delay:.8s"><div class="service-icon">5</div><h3>Сопровождение при подаче</h3><p>Поддержка на всех этапах подачи на вакансии до получения предложения.</p><ul><li>Подготовка документов</li><li>Собеседования</li><li>Переговоры по оплате</li></ul><a href="#pricing" class="btn btn-outline">Подробнее</a></div><div class="service-card animate fade-in" style="animation-delay:1s"><div class="service-icon">6</div><h3>Личный бренд</h3><p>Создание и развитие вашего личного профессионального бренда.</p><ul><li>Стратегия бренда</li><li>Позиционирование</li><li>Контент-план</li></ul><a href="#pricing" class="btn btn-outline">Подробнее</a></div></div></div></section>
 <!-- КОНТАКТЫ -->
-<section id="contact" class="section"><div class="container"><div class="contact-grid"><div class="contact-info"><h2>Связаться со мной</h2><p>Готовы начать путь к успешной карьере? Свяжитесь со мной любым удобным способом, и я помогу вам достичь ваших профессиональных целей.</p><div class="contact-item"><div class="contact-icon">📧</div><div class="contact-text"><h4>Email</h4><p>zhkam@yahoo.com</p></div></div><div class="contact-item"><div class="contact-icon">📱</div><div class="contact-text"><h4>Телефон</h4><p>+7 771 362 4400</p></div></div><div class="contact-item"><div class="contact-icon">🌍</div><div class="contact-text"><h4>Социальные сети</h4><div class="footer-social" style="margin-top:.5rem"><a href="https://www.instagram.com/zhkam/" class="social-link">IG</a><a href="https://linkedin.com/in/kamila-zhanakhmet-162760192" class="social-link">LI</a></div></div></div></div><div class="contact-form"><h3>Оставить заявку</h3><form><div class="form-group"><input type="text" class="form-control" placeholder="Ваше имя" required></div><div class="form-group"><input type="email" class="form-control" placeholder="Ваш email" required></div><div class="form-group"><select class="form-control" required><option value="" disabled selected>Выберите услугу / пакет</option><option value="resume">Обновление резюме</option><option value="consultation">Консультация</option><option value="linkedin">Аудит LinkedIn</option><option value="employment">Трудоустройство</option><option value="branding">Личный бренд</option><option value="package1">Пакет 1 (Резюме + LinkedIn + Консультация)</option><option value="package2">Пакет 2 (Резюме + Консультация + Сопровождение)</option><option value="offer">Доведение до оффера</option><option value="training">Обучение карьерному консультированию</option></select></div><div class="form-group"><textarea class="form-control" placeholder="Ваше сообщение" required></textarea></div><button type="submit" class="btn btn-primary" style="width:100%">Отправить</button></form></div></div></div></section>
-<!-- ФУТЕР -->
-<footer><div class="container"><div class="footer-grid"><div><a href="#" class="footer-logo">Камила<span style="color:var(--secondary)">.</span></a><p class="footer-text">Профессиональный карьерный консультант, помогающий людям достигать новых высот в профессиональной жизни.</p><div class="footer-social"><a href="https://www.instagram.com/zhkam/" class="social-link">IG</a><a href="https://linkedin.com/in/kamila-zhanakhmet-162760192" class="social-link">LI</a></div></div><div><h3 class="footer-title">Быстрые ссылки</h3><ul class="footer-links"><li><a href="#home">Главная</a></li><li><a href="#about">О себе</a></li><li><a href="#services">Услуги</a></li><li><a href="#pricing">Тарифы</a></li><li><a href="#contact">Контакты</a></li></ul></div><div><h3 class="footer-title">Услуги</h3><ul class="footer-links"><li><a href="#services">Трудоустройство</a></li><li><a href="#services">Обновление резюме</a></li><li><a href="#services">Карьерное консультирование</a></li><li><a href="#services">Аудит LinkedIn</a></li><li><a href="#services">Личный бренд</a></li></ul></div><div><h3 class="footer-title">Контакты</h3><ul class="footer-links"><li>Email: <a href="mailto:zhkam@yahoo.com">zhkam@yahoo.com</a></li><li>Телефон: <a href="tel:+77713624400">+7 771 362 4400</a></li><li>LinkedIn: <a href="https://linkedin.com/in/kamila-zhanakhmet-162760192" target="_blank">Профиль</a></li></ul></div></div><div class="copyright">&copy; 2025 Камила | Карьерный консультант. Все права защищены.</div></div></footer>
+<section id="contact" class="section">
+    <div class="container">
+      <div class="contact-grid">
+  
+        <!-- Левая колонка: контакты -->
+        <div class="contact-info">
+          <h2>Связаться со мной</h2>
+          <p>
+            Готовы начать путь к успешной карьере? Свяжитесь со мной любым удобным способом, и я помогу вам достичь ваших профессиональных целей.
+          </p>
+  
+          <!-- Email -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-text">
+              <h4>Email</h4>
+              <p>zhkam@yahoo.com</p>
+            </div>
+          </div>
+  
+          <!-- Телефон -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <div class="contact-text">
+              <h4>Телефон</h4>
+              <p>+7 771 362 4400</p>
+            </div>
+          </div>
+  
+          <!-- LinkedIn (если нужно оставить) -->
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fab fa-linkedin"></i>
+            </div>
+            <div class="contact-text">
+              <h4>LinkedIn</h4>
+              <p>
+                <a href="https://linkedin.com/in/kamila-zhanakhmet-162760192" target="_blank">
+                  Профиль Kamila
+                </a>
+              </p>
+            </div>
+          </div>
+  
+        </div>
+  
+        <!-- Правая колонка: форма -->
+        <form action="https://formspree.io/f/xpwdaryy" method="POST">
+            <!-- Имя -->
+            <div class="form-group">
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                placeholder="Ваше имя"
+                required
+              />
+            </div>
+          
+            <!-- Email -->
+            <div class="form-group">
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Ваш email"
+                required
+              />
+            </div>
+          
+            <!-- Выбор услуги -->
+            <div class="form-group">
+              <select name="service" class="form-control" required>
+                <option value="" disabled selected>Выберите услугу / пакет</option>
+                <option value="resume">Обновление резюме</option>
+                <option value="consultation">Консультация</option>
+                <option value="linkedin">Аудит LinkedIn</option>
+                <option value="employment">Трудоустройство</option>
+                <option value="branding">Личный бренд</option>
+                <option value="package1">Пакет 1 (Резюме + LinkedIn + Консультация)</option>
+                <option value="package2">Пакет 2 (Резюме + Консультация + Сопровождение)</option>
+                <option value="offer">Доведение до оффера</option>
+                <option value="training">Обучение карьерному консультированию</option>
+              </select>
+            </div>
+          
+            <!-- Сообщение -->
+            <div class="form-group">
+              <textarea
+                name="message"
+                class="form-control"
+                placeholder="Ваше сообщение"
+                required
+              ></textarea>
+            </div>
+          
+            <!-- Кнопка -->
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Отправить
+            </button>
+          </form>
+          
+  
+      </div>
+    </div>
+  </section>
+  <!-- ФУТЕР -->
+<footer><div class="container"><div class="footer-grid"><div><a href="#" class="footer-logo">Камила<span style="color:var(--secondary)">.</span></a><p class="footer-text">Профессиональный карьерный консультант, помогающий людям достигать новых высот в профессиональной жизни.</p><div class="footer-social"><a href="https://linkedin.com/in/kamila-zhanakhmet-162760192" class="social-link">LI</a></div></div><div><h3 class="footer-title">Быстрые ссылки</h3><ul class="footer-links"><li></li><li><a href="#about">О себе</a></li><li><a href="#services">Услуги</a></li><li><a href="#pricing">Тарифы</a></li><li><a href="#contact">Контакты</a></li></ul></div><div><h3 class="footer-title">Услуги</h3><ul class="footer-links"><li><a href="#services">Трудоустройство</a></li><li><a href="#services">Обновление резюме</a></li><li><a href="#services">Карьерное консультирование</a></li><li><a href="#services">Аудит LinkedIn</a></li><li><a href="#services">Личный бренд</a></li></ul></div><div><h3 class="footer-title">Контакты</h3><ul class="footer-links"><li>Email: <a href="mailto:zhkam@yahoo.com">zhkam@yahoo.com</a></li><li>Телефон: <a href="tel:+77713624400">+7 771 362 4400</a></li><li>LinkedIn: <a href="https://linkedin.com/in/kamila-zhanakhmet-162760192" target="_blank">Профиль</a></li></ul></div></div><div class="copyright">&copy; 2025 Камила | Карьерный консультант. Все права защищены.</div></div></footer>
 <!-- СКРИПТЫ -->
-<script>document.addEventListener('DOMContentLoaded',()=>{const mobileToggle=document.querySelector('.mobile-toggle'),nav=document.querySelector('nav'),overlay=document.querySelector('.overlay');mobileToggle.addEventListener('click',()=>{nav.classList.toggle('active');overlay.classList.toggle('active')});overlay.addEventListener('click',()=>{nav.classList.remove('active');overlay.classList.remove('active')});const header=document.querySelector('header');window.addEventListener('scroll',()=>{window.scrollY>50?header.classList.add('sticky'):header.classList.remove('sticky')});const animateElements=document.querySelectorAll('.animate');function checkInView(){const windowHeight=window.innerHeight,windowTop=window.scrollY,windowBottom=windowTop+windowHeight;animateElements.forEach(el=>{const elementTop=el.offsetTop,elementBottom=elementTop+el.offsetHeight;elementBottom>windowTop&&elementTop<windowBottom&&(el.style.animationDelay=el.dataset.delay||'0s',el.style.animationPlayState='running',el.style.opacity=1)})}checkInView();window.addEventListener('scroll',checkInView);document.querySelectorAll('a[href^="#"]').forEach(anchor=>anchor.addEventListener('click',e=>{e.preventDefault();const target=document.querySelector(anchor.getAttribute('href'));target&&(nav.classList.remove('active'),overlay.classList.remove('active'),window.scrollTo({top:target.offsetTop-80,behavior:'smooth'}))}));const pricingButtons=document.querySelectorAll('.pricing-toggle-btn');pricingButtons.forEach(btn=>btn.addEventListener('click',function(){pricingButtons.forEach(b=>b.classList.remove('active'));this.classList.add('active');document.querySelectorAll('.pricing-card').forEach(card=>{card.style.transform='scale(.95)',card.style.opacity='.7',setTimeout(()=>{card.style.transform='';card.style.opacity='' },300)})}));document.querySelectorAll('.service-card').forEach(card=>{card.addEventListener('mouseenter',()=>{card.querySelector('.service-icon').style.transform='scale(1.1) rotate(5deg)'});card.addEventListener('mouseleave',()=>{card.querySelector('.service-icon').style.transform=''})})});</script>
+
+
 </body>
 </html>
